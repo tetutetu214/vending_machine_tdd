@@ -1,7 +1,7 @@
 # VendingMachineのクラス
 class VendingMachine:
     # 初期化
-　　def __init__(self):
+    def __init__(self):
         self.balance = 0
 
     # 初期残高は0円を返す
