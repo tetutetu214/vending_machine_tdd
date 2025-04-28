@@ -34,14 +34,19 @@ def test_get_products():
 def test_purchase_success():
     """商品を購入できることをテスト"""
     machine = VendingMachine()
+    # get_products関数から商品リスト取得
     products = machine.get_products()
-    product = products[0]  # 最初の商品を選択
-
-    # 十分なお金を入れる
+    # 商品リストの[0]を選択
+    product = products[0]
+    # 500円を入れる
     machine.insert_coin(500)
+    # 商品リスト[0]の[id]を渡す
     result = machine.purchase(product["id"])
+    # [id]が渡されなければエラー
     assert result["success"] is True
+    # [id]が辞書型でなければエラー
     assert result["product"] == product
+    # get_balance() と 500-(商品の金額)が同じでなければエラー
     assert machine.get_balance() == 500 - product["price"]
 
 def test_purchase_insufficient_balance():
