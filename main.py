@@ -8,41 +8,45 @@ class VendingMachine:
             {"id": 2, "name": "お茶", "price": 130},
             {"id": 3, "name": "水", "price": 100}
         ]
-
-    # 初期残高は0円を返す
+        self.valid_coins = [10, 50, 100, 500]
+    #
     def get_balance(self):
         return self.balance
-
-    # コインを投入すると残高が増える
+    #
     def insert_coin(self, amount):
-        self.balance += amount
-
-    # 商品を返す
+        if amount in self.valid_coins:
+            self.balance += amount
+            return True
+        return False
+    #
     def get_products(self):
-        return self.products
-
-    # 商品を購入
+        # 配列のコピーを返す（イミュータブル）
+        return self.products.copy()
+    #
+    def get_product_by_id(self, product_id):
+        """IDから商品を取得するヘルパーメソッド"""
+        for product in self.products:
+            if product["id"] == product_id:
+                return product
+        return None
+    #
     def purchase(self, product_id):
-        product = None
-        for p in self.products:
-            if p["id"] == product_id:
-                product
-
+        product = self.get_product_by_id(product_id)
+        
         if product is None:
             return {
                 "success": False,
                 "message": "商品が見つかりません"
             }
-
-        # 残高チェック
+        
         if self.balance < product["price"]:
             return {
                 "success": False,
                 "message": "残高不足です"
             }
-
-        # 購入処理
+        
         self.balance -= product["price"]
+        
         return {
             "success": True,
             "product": product
