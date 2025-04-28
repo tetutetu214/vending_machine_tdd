@@ -17,13 +17,18 @@ def test_get_products():
     """商品リストを取得できることをテスト"""
     machine = VendingMachine()
     products = machine.get_products()
+    # isinstance組込関数(products が list型)でなければエラー
     assert isinstance(products, list)
+    # len組込関数(products) が 0 より小さければエラー
     assert len(products) > 0
 
     # 商品の構造をチェック
     for product in products:
+        # products の中に "id"がなければエラー
         assert "id" in product
+        # products の中に "name"がなければエラー
         assert "name" in product
+        # products の中に "price"がなければエラー
         assert "price" in product
 
 def test_purchase_success():
