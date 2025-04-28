@@ -42,7 +42,7 @@ def test_purchase_success():
     machine.insert_coin(500)
     # 商品リスト[0]の[id]を渡す
     result = machine.purchase(product["id"])
-    # [id]が渡されなければエラー
+    # [購入が成功]しなければエラー
     assert result["success"] is True
     # [id]が辞書型でなければエラー
     assert result["product"] == product
@@ -52,12 +52,17 @@ def test_purchase_success():
 def test_purchase_insufficient_balance():
     """残高不足の場合は購入できないことをテスト"""
     machine = VendingMachine()
+    # get_products関数から商品リスト取得
     products = machine.get_products()
+    # 商品リストの[0]を選択
     product = products[0]
-
-    # わざと少ないお金を入れる
+    # 10円を入れる
     machine.insert_coin(10)
+    # 商品リスト[0]の[id]を渡す
     result = machine.purchase(product["id"])
+    # [購入が失敗]しなければエラー
     assert result["success"] is False
+    # [残高不足です]が表示されなければエラー
     assert result["message"] == "残高不足です"
-    assert machine.get_balance() == 10  # 残高は変わらない
+    # get_balance() と 10 が同じでなければエラー
+    assert machine.get_balance() == 10
