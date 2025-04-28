@@ -21,7 +21,7 @@ class VendingMachine:
     def get_products(self):
         return self.products
 
-    # 商品を探す
+    # 商品を購入
     def purchase(self, product_id):
         product = None
         for p in self.products:

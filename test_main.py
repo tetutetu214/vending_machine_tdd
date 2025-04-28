@@ -3,12 +3,14 @@ from main import VendingMachine
 def test_initial_balance_is_zero():
     """自動販売機の初期残高は0円であることをテスト"""
     machine = VendingMachine()
+    # 「machine.get_balance() == 0」がFalseならエラー
     assert machine.get_balance() == 0
 
 def test_insert_coin():
     """コインを投入すると残高が増えることをテスト"""
     machine = VendingMachine()
     machine.insert_coin(100)
+    # 「machine.get_balance() == 100」がFalseならエラー
     assert machine.get_balance() == 100
 
 def test_get_products():
